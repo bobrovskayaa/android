@@ -41,7 +41,7 @@
         android:name="com.example.natasha.hw2_activities.Fragment3"
         android:layout_width="421dp"
         android:layout_height="201dp"
-        tools:layout="@layout/fragment3"
+        tools:layout="@layout/fragment3a"
         app:layout_constraintLeft_toRightOf="@+id/fragment"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
