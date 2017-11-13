@@ -14,13 +14,13 @@
         android:layout_width="395dp"
         android:layout_height="173dp"
         tools:layout="@layout/fragment1"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="83dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.482" />
+        app:layout_constraintVertical_bias="0.463" />
 
     <fragment
         android:id="@+id/fragment2"
@@ -52,4 +52,11 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment2"
         app:layout_constraintHorizontal_bias="0.644"
         app:layout_constraintVertical_bias="0.0" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical" />
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.natasha.hw2_activities;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,8 +22,15 @@ public class Main2Activity extends AppCompatActivity implements Fragment1.OnSele
         Fragment2 fragment2 = (Fragment2) fragmentManager
                 .findFragmentById(R.id.fragment2);
 
-        // Выводим нужную информацию
-        if (fragment2 != null)
+        // если фрагмента не существует или он невидим
+        if (fragment2 == null || !fragment2.isVisible()) {
+            // запускаем активность
+            Intent intent = new Intent(this, Main3Activity.class);
+            intent.putExtra("buttonIndex", buttonIndex);
+            startActivity(intent);
+        } else {
+            // Выводим нужную информацию
             fragment2.setDescription(buttonIndex);
+        }
     }
 }
