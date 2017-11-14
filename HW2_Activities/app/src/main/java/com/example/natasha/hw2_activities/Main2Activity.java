@@ -1,6 +1,7 @@
 package com.example.natasha.hw2_activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +21,10 @@ public class Main2Activity extends AppCompatActivity implements Fragment1.OnSele
     private Button mButton1;
     private Button mButton2;
     String mPhone;
+    String mMessage;
+    private static final String KEY_PHONE = "PHONE";
+    private static final String KEY_MESS = "MESS";
+    FragmentManager fragmentManager;
 
 
     @Override
@@ -29,26 +34,53 @@ public class Main2Activity extends AppCompatActivity implements Fragment1.OnSele
         container = (FrameLayout) findViewById(R.id.container);
         mButton1 = (Button) findViewById(R.id.button2);
         mButton2 = (Button) findViewById(R.id.button3);
+        //при создании экрана нужно сохранять ФРАГМЕНТЫ?
+        // для разной ориентации создаются разные объекты и они хранят разные значения
+        // нужно передать данные из активности2 в активность3 и наоборот
+        //забудь пока про ключи
         mFragment1 = new Fragment3a();
         mFragment2 = new Fragment3b();
+        fragmentManager = getSupportFragmentManager();
 
-        /*if (savedInstanceState == null) {
+        if (savedInstanceState != null) {
+            mPhone = savedInstanceState.getString(KEY_PHONE, "");
+            mMessage = savedInstanceState.getString(KEY_MESS, "");
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                Fragment2 fragment2 = (Fragment2) fragmentManager
+                        .findFragmentById(R.id.fragment2);
+                fragment2.editPhone(mPhone);
+            }
+        }
+        //
+        if (savedInstanceState == null &&
+                getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Fragment2 fragment2 = (Fragment2) fragmentManager
+                    .findFragmentById(R.id.fragment2);
+            mPhone = fragment2.showPhone();
+
             // при первом запуске программы
-            FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager
                     .beginTransaction();
+
             // добавляем в контейнер при помощи метода add()
             fragmentTransaction.add(R.id.container, mFragment1);
             fragmentTransaction.commit();
             mButton1.setEnabled(false);
             mButton2.setEnabled(true);
-        }*/
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_PHONE, mPhone);
+        outState.putString(KEY_MESS, mMessage);
     }
 
     @Override
     public void onButtonSelected(int buttonIndex) {
         // подключаем FragmentManager
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
 
         // Получаем ссылку на второй фрагмент по ID
         Fragment2 fragment2 = (Fragment2) fragmentManager
@@ -62,7 +94,6 @@ public class Main2Activity extends AppCompatActivity implements Fragment1.OnSele
             startActivity(intent);
         } else {
             // Выводим нужную информацию
-            //fragment2.setDescription(buttonIndex);
             mPhone = fragment2.showPhone();
 
             FragmentTransaction fragmentTransaction = fragmentManager
@@ -87,7 +118,7 @@ public class Main2Activity extends AppCompatActivity implements Fragment1.OnSele
     }
 
     public void onClickCall(View view) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
 
         Fragment2 fragment2 = (Fragment2) fragmentManager
                 .findFragmentById(R.id.fragment2);
@@ -102,16 +133,16 @@ public class Main2Activity extends AppCompatActivity implements Fragment1.OnSele
     }
 
     public void onClickSend(View view) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
 
         Fragment2 fragment2 = (Fragment2) fragmentManager
                 .findFragmentById(R.id.fragment2);
 
-        String message = mFragment2.showMessage();
         mPhone = fragment2.showPhone();
-        if(!TextUtils.isEmpty(message) && !TextUtils.isEmpty(mPhone)) {
+        mMessage = mFragment2.showMessage();
+        if(!TextUtils.isEmpty(mMessage) && !TextUtils.isEmpty(mPhone)) {
             Intent smsIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + mPhone));
-            smsIntent.putExtra("sms_body", message);
+            smsIntent.putExtra("sms_body", mMessage);
             startActivity(smsIntent);
         }
         else {

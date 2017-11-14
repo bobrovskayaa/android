@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickGo(View view) {
-        if (mLogin.getText().toString().equals("") && (mPassword.getText().toString().equals(""))) {
+        if (mLogin.getText().toString().equals("Admin") && (mPassword.getText().toString().equals("admin"))) {
             Intent intent = new Intent(MainActivity.this, Main2Activity.class);
             startActivity(intent);
         }

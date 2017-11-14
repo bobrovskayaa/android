@@ -2,6 +2,8 @@ package com.example.natasha.hw2_activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,21 +27,12 @@ public class Fragment2 extends android.support.v4.app.Fragment {
         return rootView;
     }
 
-    /*public void setDescription(int buttonIndex) {
-        switch (buttonIndex) {
-            case 2:
-                mPhone.setText("+79778127897");
-                break;
-            case 3:
-                mPhone.setText("+79778127897");
-                break;
-            default:
-                break;
-        }
-    }*/
-
     public String showPhone() {
         return mPhone.getText().toString();
+    }
+
+    public void editPhone(String number) {
+        mPhone.setText(number);
     }
 
 }

@@ -21,8 +21,8 @@ public class Fragment1 extends android.support.v4.app.Fragment implements View.O
         View rootView =
                 inflater.inflate(R.layout.fragment1, container, false);
 
-        Button button2 = (Button) rootView.findViewById(R.id.button2);
-        Button button3 = (Button) rootView.findViewById(R.id.button3);
+        Button button2 = rootView.findViewById(R.id.button2);
+        Button button3 = rootView.findViewById(R.id.button3);
 
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
@@ -49,10 +49,6 @@ public class Fragment1 extends android.support.v4.app.Fragment implements View.O
 
         OnSelectedButtonListener listener = (OnSelectedButtonListener) getActivity();
         listener.onButtonSelected(buttonIndex);
-
-        // Временный код для получения индекса нажатой кнопки
-        /*Toast.makeText(getActivity(), String.valueOf(buttonIndex),
-                Toast.LENGTH_SHORT).show();*/
     }
 
     public interface OnSelectedButtonListener {

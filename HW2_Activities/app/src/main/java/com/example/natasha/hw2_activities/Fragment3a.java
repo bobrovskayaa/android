@@ -22,6 +22,7 @@ public class Fragment3a extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment3a, null);
 
+
         return view;
     }
 

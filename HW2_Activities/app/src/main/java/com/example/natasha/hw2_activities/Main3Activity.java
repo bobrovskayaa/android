@@ -17,6 +17,10 @@ public class Main3Activity extends AppCompatActivity {
     FrameLayout container;
     Fragment3a mFragment1;
     Fragment3b mFragment2;
+    String mPhone2;
+    String mMessage2;
+    private static final String KEY_PHONE2 = "PHONE2";
+    private static final String KEY_MESS2 = "MESS2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,17 @@ public class Main3Activity extends AppCompatActivity {
         mFragment1 = new Fragment3a();
         mFragment2 = new Fragment3b();
         container = (FrameLayout) findViewById(R.id.container);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment2 fragment2 = (Fragment2) fragmentManager
+                .findFragmentById(R.id.fragment2);
+
+        if (savedInstanceState != null) {
+            mPhone2 = savedInstanceState.getString(KEY_PHONE2, "");
+            mMessage2 = savedInstanceState.getString(KEY_MESS2, "");
+        }
+
+        fragment2.editPhone(mPhone2);
 
         //Выход из альбомной ориентации
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -37,10 +52,6 @@ public class Main3Activity extends AppCompatActivity {
         Intent intent = getIntent();
         int buttonIndex = intent.getIntExtra("buttonIndex", -1);
         if (buttonIndex != -1) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment2 fragment2 = (Fragment2) fragmentManager
-                    .findFragmentById(R.id.fragment2);
-            //fragment2.setDescription(buttonIndex);
 
             FragmentTransaction fragmentTransaction = fragmentManager
                     .beginTransaction();
@@ -57,6 +68,13 @@ public class Main3Activity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_PHONE2, mPhone2);
+        outState.putString(KEY_MESS2, mMessage2);
     }
 
     public void onClickCall(View view) {
