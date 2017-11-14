@@ -51,8 +51,8 @@ public class Fragment1 extends android.support.v4.app.Fragment implements View.O
         listener.onButtonSelected(buttonIndex);
 
         // Временный код для получения индекса нажатой кнопки
-        Toast.makeText(getActivity(), String.valueOf(buttonIndex),
-                Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getActivity(), String.valueOf(buttonIndex),
+                Toast.LENGTH_SHORT).show();*/
     }
 
     public interface OnSelectedButtonListener {
